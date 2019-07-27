@@ -448,6 +448,29 @@ setMethod(
 		}
 )
 
+##### SETMETHOD VIEW
+
+setMethod(
+  f = "View",
+  signature = "ovariable",
+  definition = function(x, title= x@name){
+    if(length(title)==0) title <- ""
+    if(nrow(x@output)==0) stop("Ovariable not evaluated")
+    return(callGeneric(x@output, ...))
+  }
+)
+
+##### SETMETHOD COLNAMES
+
+setMethod(
+  f = "colnames",
+  signature = "ovariable",
+  definition = function(x){
+    if(nrow(x@output)==0) stop("Ovariable not evaluated")
+    return(callGeneric(x@output))
+  }
+)
+
 # OGGPLOT ################ ggplot diagrams about ovariable data
 
 oggplot <- function(x, type="bar") {
@@ -517,6 +540,27 @@ oggplot <- function(x, type="bar") {
   return(g)
 }
 
+#' @title Removes output and marginal from a list of ovariables so that they must be evaluated if needed.
+#' @param ovas character vector of ovariable names
+#' @return Adjusts ovariables in the .GlobalEnv
+
+oempty <- function(ovas=character(), all=FALSE, envir=.GlobalEnv) {
+  if(all) tmp <- c(ovas, ls(envir=.GlobalEnv)) else tmp <- ovas
+  out <- character()
+  for(i in unique(tmp)) {
+    if(exists(i)) {
+      if("ovariable" %in% class(get(i))) out <- c(out, i)
+    }
+  }
+  if(length(setdiff(ovas, out))>0) warning("These are not ovariables and thus are ignored:", setdiff(ovas,out),"\n")
+  for(i in out) {
+    tmp <- get(i)
+    tmp@output <- data.frame()
+    tmp@marginal <- logical()
+    assign(i, tmp, envir=envir)
+  }
+  rm(list=intersect(out, ls(envir=openv)),envir=openv)
+}
 
 # SETMETHOD summary ################### Summary defines how summaries of ovariables are shown.
 setMethod(
