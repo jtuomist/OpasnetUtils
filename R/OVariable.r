@@ -450,15 +450,15 @@ setMethod(
 
 ##### SETMETHOD VIEW
 
-setMethod(
-  f = "View",
-  signature = "ovariable",
-  definition = function(x, title= x@name){
-    if(length(title)==0) title <- ""
-    if(nrow(x@output)==0) stop("Ovariable not evaluated")
-    return(callGeneric(x@output, ...))
-  }
-)
+# setMethod(
+#   f = "View",
+#   signature = "ovariable",
+#   definition = function(x, title= x@name){
+#     if(length(title)==0) title <- ""
+#     if(nrow(x@output)==0) stop("Ovariable not evaluated")
+#     return(callGeneric(x@output, ...))
+#   }
+# )
 
 ##### SETMETHOD COLNAMES
 
