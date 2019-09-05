@@ -181,6 +181,8 @@ setMethod(
 			#e2 <- new("ovariable", output = data.frame(Result = e2))
 			#out <- callGeneric(e1, e2) # Call above definition
 			#out@name <- e1@name
+		  if(nrow(e1@output)==0) e1 <- EvalOutput(e1)
+		  if(length(e2)>1) warning("Numeric length >1 which may cause problems interpreting Ops")
 			result(e1) <- callGeneric(result(e1), e2)
 			return(e1)
 		}
@@ -193,7 +195,9 @@ setMethod(
 			#e1 <- new("ovariable", output = data.frame(Result = e1))
 			#out <- callGeneric(e1, e2) # Call above definition
 			#out@name <- e2@name
-			result(e2) <- callGeneric(e1, result(e2))
+		  if(nrow(e2@output)==0) e2 <- EvalOutput(e2)
+		  if(length(e1)>1) warning("Numeric length >1 which may cause problems interpreting Ops")
+		  result(e2) <- callGeneric(e1, result(e2))
 			return(e2)
 		}
 )
@@ -505,7 +509,7 @@ oggplot <- function(x, type="bar") {
     if(leng[i]==1 & !grepl("Source$", colnames(ind)[i])) subtitle <- c(subtitle, paste0(colnames(ind)[i], ": ", as.character(ind[[i]][1])))
   }
   subtitle <- paste(subtitle, collapse="; ")
-  
+
   # Use the remaining indices
   rema <- colnames(ind)[order(-leng)]
   rema <- setdiff(colnames(ind), c(xaxis, colnames(ind)[leng==1]))
@@ -531,7 +535,7 @@ oggplot <- function(x, type="bar") {
     g <- g + labs(
       title = paste0(x@name, " by ", xaxis),
       subtitle = subtitle,
-      y = paste(x@name, " (", x@meta$Unit, ")")
+      y = paste(x@name, " (", x@meta$unit, ")")
     )
   if(length(rema)==2) g <- g + facet_wrap(~get(rema[2]))
   if(length(rema)>=3) g <- g + facet_grid(get(rema[2]) ~ get(rema[3]))

@@ -9,6 +9,7 @@ CheckInput <- function(variable, substitute = FALSE, indent = 0, verbose = TRUE,
 	if (exists(paste("Inp", variable@name, sep = ""))) {
 		if (verbose) cat(rep("-", indent), "Processing", variable@name, "inputs", "...")
 		inputvar <- get(paste("Inp", variable@name, sep = ""))
+		if(nrow(inputvar@output)==0) inputvar <- EvalOutput(inputvar)
 		marginals <- union(colnames(variable@output)[variable@marginal], colnames(inputvar@output)[inputvar@marginal])
 		if (substitute) {
 		#	colnames(inputvar@output)[colnames(inputvar@output) == paste(variable@name, "Result", sep = "")] <- "InpVarRes"
