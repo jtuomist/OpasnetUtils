@@ -4,7 +4,7 @@ importFrom("utils", "URLencode", "combn", "find", "read.table")
 #importFrom("base", merge, summary)
 #importFrom("graphics", plot)
 exportClasses(ovariable, odecision)
-exportMethods(merge, summary, plot, unique, View, colnames)
+exportMethods(merge, summary, plot, unique, colnames) # View
 export(
 	odag,
 	oempty,
