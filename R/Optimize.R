@@ -9,7 +9,7 @@
 ######################
 
 Minimize <- function(data, indices){
-	if (class(data) == "data.frame") data <- Ovariable(output = data)
+	if ("data.frame" %in% class(data)) data <- Ovariable(output = data)
 	wm <- tapply(result(data), data@output[indices], which.min)
 	
 	finder <- function(vec, wm) {

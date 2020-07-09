@@ -28,14 +28,14 @@ CheckMarginals <- function(variable, deps = list(), dep_margs = list(), dep_noma
 	} else {
 		if (length(deps) > 0) {
 			for (i in deps) {
-				if (class(i) == "ovariable") {
+				if ("ovariable" %in% class(i)) {
 					varmar <- union(varmar, colnames(i@output)[i@marginal])
 					novarmar <- union(novarmar, colnames(i@output)[!i@marginal])
 				}
 			}
 		} else {
 			for (i in as.character(variable@dependencies$Name)){
-				if (class(get(i)) == "ovariable") {
+				if ("ovariable" %in% class(get(i))) {
 					varmar <- union(varmar, colnames(get(i)@output)[get(i)@marginal])
 					novarmar <- union(novarmar, colnames(get(i)@output)[!get(i)@marginal])
 				}

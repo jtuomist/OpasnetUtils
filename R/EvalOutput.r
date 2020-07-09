@@ -17,7 +17,7 @@ EvalOutput <- function(variable, fillna = FALSE, indent = 0, verbose = FALSE, ..
 	} else a <- variable@data
 	b <- variable@formula(variable@dependencies, indent = indent, verbose = verbose, ...)
 	tempmarginals <- character()
-	if (class(b)[1]=="ovariable") {
+	if ("ovariable" %in% class(b)) {
 		if (length(b@marginal) > 0) {
 			tempmarginals <- c(
 				tempmarginals, 

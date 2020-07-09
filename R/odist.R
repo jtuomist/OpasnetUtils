@@ -76,7 +76,7 @@ rdirichlet2 <- function(alpha, n) {
 }
 
 odirichlet <- function(a, n = 0, ...) {
-	if (class(a) != "ovariable") stop("a is not an ovariable!\n")
+	if (!"ovariable" %in% class(a)) stop("a is not an ovariable!\n")
 	if (n == 0) n <- openv$N
 	if ("Iter" %in% colnames(a@output)) n <- 1
 	

@@ -16,7 +16,7 @@ odebug <- function(x, variance = FALSE) {
 	
 	if (nrow(x@dependencies)>0) {
 		for (i in x@dependencies$Name){
-			if (class(get(i)) == "ovariable") {
+			if ("ovariable" %in% class(get(i))) {
 				out[["output_rows"]][[i]] <- nrow(get(i)@output)
 			}
 		}
@@ -30,7 +30,7 @@ odebug <- function(x, variance = FALSE) {
 	
 	if (nrow(x@dependencies)>0) {
 		for (i in x@dependencies$Name){
-			if (class(get(i)) == "ovariable") {
+			if ("ovariable" %in% class(get(i))) {
 				out[["NAs"]][[i]] <- list()
 				out[["NAs"]][[i]][["total"]] <- sum(is.na(result(get(i))))
 			} else {

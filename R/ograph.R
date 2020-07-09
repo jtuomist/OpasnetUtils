@@ -38,7 +38,7 @@ ograph <- function( # maaritellaan yleisfunktio piirtamiseen
 		fill = NA, 
 		...
 ) {
-	if(class(ovariable) == "ovariable")  {
+	if("ovariable" %in% class(ovariable))  {
 		if(nrow(ovariable@output) == 0) ovariable <- EvalOutput(ovariable)
 		data <- ovariable@output
 		title <- ovariable@name

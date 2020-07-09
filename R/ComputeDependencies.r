@@ -14,7 +14,7 @@ ComputeDependencies <- function(dependencies, forceEval = FALSE, indent = 0, ver
 			ret <- tryCatch(get(i), error = function(e) return(NULL))
 			if (is.null(ret)) stop(paste("Ovariable depends on missing variable named '",i,"'",sep='' ))
 			# If dependency is ovariable
-			if (class(get(i)) == "ovariable") {
+			if ("ovariable" %in% class(get(i))) {
 				if (nrow(get(i)@output) == 0 | forceEval) {
 					#assign(i, EvalOutput(get(i), indent = indent, verbose = verbose, ...), envir = as.environment(find(i)))
 					ret1 <- tryCatch(

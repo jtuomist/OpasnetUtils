@@ -12,10 +12,10 @@ odag <- function(plotting = TRUE, ...) {
 	dec <- character()
 	deci <- character()
 	for(i in ls(envir = .GlobalEnv)) { # Find all ovariables
-		if(class(get(i)) == "ovariable") {
+		if("ovariable" %in% class(get(i))) {
 			ova <- c(ova, i)
 		}
-		if(class(get(i)) == "odecision") {
+		if("odecision" %in% class(get(i))) {
 			dec <- c(dec, i)
 		}
 	}
